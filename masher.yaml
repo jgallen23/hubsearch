@@ -1,0 +1,25 @@
+mash:
+  - name: app
+    files:
+      - ui/vendor/bootstrap/css/bootstrap.css
+      - ui/stylesheets/common.css
+  - name: app
+    files:
+      #vendor
+      - ui/vendor/jquery/jquery-1.7.2.min.js
+      - ui/vendor/underscore/underscore-min.js
+      - ui/vendor/bootstrap/js/bootstrap.js
+      - ui/vendor/fidel/fidel.js
+      - ui/vendor/fidel-routes/fidel.routes.js 
+      #plugins
+      - ui/scripts/plugins/fidel-underscore.js
+      - ui/scripts/plugins/relative-time.js
+      #app
+      - ui/scripts/utils/score.js
+      - ui/scripts/services/github-search.js
+      - ui/scripts/modules/search-box.js
+      - ui/scripts/modules/search-results.js
+      - ui/scripts/app.js
+options:
+  out: ui/_dist
+  #minify: true

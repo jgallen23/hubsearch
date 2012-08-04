@@ -1,0 +1,11 @@
+{
+  "name": "hubsearch",
+  "version": "0.0.1",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "markx": "*",
+    "masher": "*",
+    "boots": "*"
+  }
+}

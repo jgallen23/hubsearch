@@ -1,0 +1,90 @@
+languages:
+  - ActionScript
+  - Ada
+  - Apex
+  - Arc
+  - Arduino
+  - ASP
+  - Assembly
+  - Augeas
+  - AutoHotkey
+  - Boo
+  - Bro
+  - C
+  - C#
+  - C++
+  - Ceylon
+  - Clojure
+  - CoffeeScript
+  - ColdFusion
+  - Common Lisp
+  - Coq
+  - D
+  - Dart
+  - DCPU-16 ASM
+  - Delphi
+  - Dylan
+  - eC
+  - Eiffel
+  - Elixir
+  - Emacs Lisp
+  - Erlang
+  - F#
+  - Factor
+  - Fancy
+  - Fantom
+  - FORTRAN
+  - Go
+  - Gosu
+  - Groovy
+  - Haskell
+  - HaXe
+  - Io
+  - Ioke
+  - Java
+  - JavaScript
+  - Julia
+  - Kotlin
+  - Logtalk
+  - Lua
+  - Matlab
+  - Max/MSP
+  - Mirah
+  - Nemerle
+  - Nimrod
+  - Nu
+  - Objective-C
+  - Objective-J
+  - OCaml
+  - ooc
+  - Opa
+  - OpenEdge ABL
+  - Parrot
+  - Perl
+  - PHP
+  - PowerShell
+  - Prolog
+  - Puppet
+  - Pure Data
+  - Python
+  - R
+  - Racket
+  - Rebol
+  - Ruby
+  - Rust
+  - Scala
+  - Scheme
+  - Scilab
+  - Self
+  - Shell
+  - Smalltalk
+  - Standard ML
+  - SuperCollider
+  - Tcl
+  - Turing
+  - Vala
+  - Verilog
+  - VHDL
+  - VimL
+  - Visual Basic
+  - XQuery
