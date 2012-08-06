@@ -11,7 +11,7 @@ $.fidel('searchResults', {
   },
   set: function(results) {
     this.results = results;
-    this.sortBy('scoreValue');
+    this.sortBy('githubRank');
   },
   tableHeaderClicked: function(e) {
     var sort = $(e.target).data('sort');
@@ -28,6 +28,8 @@ $.fidel('searchResults', {
       if (key == 'commit') {
         var d = new Date(item.pushed_at).getTime();
         return now - d;
+      } else if (key == 'githubRank') {
+        return item[key];
       } else { 
         return -item[key];
       }

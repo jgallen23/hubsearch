@@ -49,6 +49,7 @@
               <tr>
                 <th>Repo</th>
                 <th data-sort="commit">Last Commit</th>
+                <th data-sort="githubRank">Github</th>
                 <th data-sort="watchers">Watchers</th>
                 <th data-sort="forks">Forks</th>
                 <th data-sort="scoreValue">Score</th>
@@ -85,6 +86,7 @@
             <p>{{= result.description }}</p>
           </td>
           <td data-timestamp="{{= result.pushed_at }}"></td>
+          <td>{{= result.githubRank }}</td>
           <td>{{= result.watchers }}</td>
           <td>{{= result.forks }}</td>
           <td>{{= result.scoreValue }}</td>

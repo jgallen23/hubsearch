@@ -6,7 +6,7 @@
 
   var week = 1000 * 60 * 60 * 24 * 7;
 
-  var calculateScore = function(repo) {
+  var calculateScore = function(repo, index) {
 
     //commit time
     var now = new Date().getTime();
@@ -27,6 +27,7 @@
       watch: round(watchScore),
       fork: round(forkScore)
     }
+    repo.githubRank = index + 1;
     repo.scoreValue = Math.round(commitScore + watchScore + forkScore);
   }
 
