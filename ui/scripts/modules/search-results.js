@@ -41,6 +41,7 @@ $.fidel('searchResults', {
     this.find('[data-timestamp]').relativeTime();
   },
   showLoading: function() {
+    this.els.table.hide();
     this.els.loading.show();
   }
 });

@@ -2575,15 +2575,22 @@ a:hover {
 .navbar-inner {
   border-radius: 0 0 4px 4px;
 }
+.results table {
+  display: none;
+}
+
 .results table .selected {
   text-decoration: underline;
 }
+
 .results table [data-sort] {
   cursor: pointer;
 }
+
 .results .name {
   width: 40%;
 }
+
 .results .name p {
   font-size: 11px;
   color: #9C9C9C;
@@ -2592,4 +2599,10 @@ a:hover {
 
 .form-search .span4 input {
   width: 100%;
+}
+
+.loading {
+  background: url(../images/loader.gif) no-repeat;
+  padding-left: 20px;
+  line-height: 20px;
 }

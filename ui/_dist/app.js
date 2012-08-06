@@ -435,7 +435,9 @@ View.onPostInit = function(fn) {
 
 $.fidel = function(name, obj) {
 
-  $.fn[name] = function(options) {
+  $.fn[name] = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var options = args.shift();
 
     return this.each(function() {
       var $this = $(this);
@@ -447,7 +449,7 @@ $.fidel = function(name, obj) {
         $this.data(name, data); 
       }
       if (typeof options === 'string') {
-        data[options]();
+        data[options].apply(data, args);
       }
     });
   };
@@ -455,6 +457,8 @@ $.fidel = function(name, obj) {
   $.fn[name].defaults = obj.defaults || {};
 
 };
+
+$.fidel.View = View;
 
 w.Fidel = View;
 })(window, window.jQuery || window.Zepto);
@@ -593,7 +597,7 @@ Fidel.prototype.route = function(path) {
   routie(path);
 }
 
-Fidel.onPreInit(function() {
+Fidel.onPostInit(function() {
   this.processRoutes();
 });
 
@@ -735,6 +739,10 @@ $.fidel('searchBox', {
       e.preventDefault();
     }
   },
+  set: function(query, lang) {
+    this.els.query.val(query);
+    this.els.language.val(lang);
+  },
   cancelDefaultFormAction: function(e) {
     e.preventDefault();
   }
@@ -744,7 +752,9 @@ $.fidel('searchResults', {
   template: '#tpl-results',
   templateTarget: 'tbody',
   elements: {
-    'tbody': 'results'
+    'table': 'table',
+    'tbody': 'results',
+    '.loading': 'loading'
   },
   events: {
     'click [data-sort]': 'tableHeaderClicked'
@@ -775,8 +785,14 @@ $.fidel('searchResults', {
     this.update();
   },
   update: function() {
+    this.els.loading.hide();
+    this.els.table.show();
     this.render({ results: this.results });
     this.find('[data-timestamp]').relativeTime();
+  },
+  showLoading: function() {
+    this.els.table.hide();
+    this.els.loading.show();
   }
 });
 
@@ -803,11 +819,11 @@ $.fidel('app', {
   },
   showResults: function(lang, query) {
     var self = this;
+    self.els.search.searchBox('set', query, lang);
+    self.els.results.searchResults('showLoading');
     githubSearch(query, lang, function(err, results) {
-      console.log(results);
       calculateScores(results);
-      //TODO: this is gross
-      self.els.results.data('searchResults').set(results);
+      self.els.results.searchResults('set', results);
     });
   }
 });
