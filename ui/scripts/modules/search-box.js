@@ -6,7 +6,8 @@ $.fidel('searchBox', {
   events: {
     'keyup query': 'checkKeyUp',
     'change language': 'search',
-    'click button': 'search'
+    'click button': 'search',
+    'submit form': 'cancelDefaultFormAction'
   },
   init: function() {
     this.els.language.typeahead({
@@ -19,7 +20,7 @@ $.fidel('searchBox', {
       this.search();
     }
   },
-  search: function() {
+  search: function(e) {
     var query = this.els.query.val();
     var language = this.els.language.val().toLowerCase() || 'all';
 
@@ -28,5 +29,11 @@ $.fidel('searchBox', {
     }
 
     this.route('/'+language+'/'+query);
+    if (e) {
+      e.preventDefault();
+    }
+  },
+  cancelDefaultFormAction: function(e) {
+    e.preventDefault();
   }
 });
