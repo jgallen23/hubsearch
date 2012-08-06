@@ -21,8 +21,8 @@ $.fidel('app', {
   },
   showResults: function(lang, query) {
     var self = this;
+    self.els.search.searchBox('set', query, lang);
     githubSearch(query, lang, function(err, results) {
-      console.log(results);
       calculateScores(results);
       self.els.results.searchResults('set', results);
     });

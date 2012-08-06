@@ -33,6 +33,10 @@ $.fidel('searchBox', {
       e.preventDefault();
     }
   },
+  set: function(query, lang) {
+    this.els.query.val(query);
+    this.els.language.val(lang);
+  },
   cancelDefaultFormAction: function(e) {
     e.preventDefault();
   }

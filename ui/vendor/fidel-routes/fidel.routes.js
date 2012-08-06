@@ -132,7 +132,7 @@ Fidel.prototype.route = function(path) {
   routie(path);
 }
 
-Fidel.onPreInit(function() {
+Fidel.onPostInit(function() {
   this.processRoutes();
 });
 
