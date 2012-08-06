@@ -22,7 +22,7 @@ $.fidel('searchBox', {
   },
   search: function(e) {
     var query = this.els.query.val();
-    var language = this.els.language.val().toLowerCase() || 'all';
+    var language = this.els.language.val() || 'all';
 
     if (!query) {
       return;

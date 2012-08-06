@@ -17,7 +17,6 @@ $.fidel('app', {
     this.els.results.searchResults();
   },
   showHome: function() {
-    console.log('home');
   },
   showResults: function(lang, query) {
     var self = this;
