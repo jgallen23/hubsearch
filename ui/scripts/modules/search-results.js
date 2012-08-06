@@ -2,7 +2,9 @@ $.fidel('searchResults', {
   template: '#tpl-results',
   templateTarget: 'tbody',
   elements: {
-    'tbody': 'results'
+    'table': 'table',
+    'tbody': 'results',
+    '.loading': 'loading'
   },
   events: {
     'click [data-sort]': 'tableHeaderClicked'
@@ -33,8 +35,12 @@ $.fidel('searchResults', {
     this.update();
   },
   update: function() {
-    this.show();
+    this.els.loading.hide();
+    this.els.table.show();
     this.render({ results: this.results });
     this.find('[data-timestamp]').relativeTime();
+  },
+  showLoading: function() {
+    this.els.loading.show();
   }
 });
