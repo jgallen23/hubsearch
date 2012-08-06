@@ -26,6 +26,7 @@ $.fidel('app', {
       calculateScores(results);
       self.els.results.searchResults('set', results);
     });
+    _gaq.push(['_trackEvent', 'hubsearch', 'search', '']);
   }
 });
 
