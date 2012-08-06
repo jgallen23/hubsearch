@@ -1,6 +1,8 @@
 #HubSearch
 
-Github is awesome, but what it's lacking is good search results.  It's very hard to filter out all the crappy, abandoned repos.  HubSearch is a small web app that leverages Github's api to provide a better experience for search.  You can check it out [here](http://projects.jga.me/hubsearch)
+Github is awesome, but what it's lacking is good search results.  It's very hard to filter out all the crappy, abandoned repos.  HubSearch is a small web app that leverages Github's api to provide a better experience for search by giving each repo a score based on watchers, forks and when it was last commited to.  You can also sort by any of these metrics.  
+
+You can check it out [here](http://projects.jga.me/hubsearch).
 
 ##Setup
 
