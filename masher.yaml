@@ -22,4 +22,4 @@ mash:
       - ui/scripts/app.js
 options:
   out: ui/_dist
-  #minify: true
+  minify: true
