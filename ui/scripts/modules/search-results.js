@@ -33,6 +33,7 @@ $.fidel('searchResults', {
     this.update();
   },
   update: function() {
+    this.show();
     this.render({ results: this.results });
     this.find('[data-timestamp]').relativeTime();
   }
