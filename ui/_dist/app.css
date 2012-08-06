@@ -2589,3 +2589,7 @@ a:hover {
   color: #9C9C9C;
   margin: 2px 0;
 }
+
+.form-search .span4 input {
+  width: 100%;
+}
