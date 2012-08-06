@@ -24,8 +24,7 @@ $.fidel('app', {
     githubSearch(query, lang, function(err, results) {
       console.log(results);
       calculateScores(results);
-      //TODO: this is gross
-      self.els.results.data('searchResults').set(results);
+      self.els.results.searchResults('set', results);
     });
   }
 });

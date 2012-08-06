@@ -113,7 +113,9 @@ View.onPostInit = function(fn) {
 
 $.fidel = function(name, obj) {
 
-  $.fn[name] = function(options) {
+  $.fn[name] = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var options = args.shift();
 
     return this.each(function() {
       var $this = $(this);
@@ -125,7 +127,7 @@ $.fidel = function(name, obj) {
         $this.data(name, data); 
       }
       if (typeof options === 'string') {
-        data[options]();
+        data[options].apply(data, args);
       }
     });
   };
@@ -133,6 +135,8 @@ $.fidel = function(name, obj) {
   $.fn[name].defaults = obj.defaults || {};
 
 };
+
+$.fidel.View = View;
 
 w.Fidel = View;
 })(window, window.jQuery || window.Zepto);
