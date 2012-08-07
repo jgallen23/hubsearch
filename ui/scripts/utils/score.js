@@ -18,19 +18,19 @@
       commitScore = 0;
     }
 
-    //watchers
-    var watchScore = repo.watchers * 100 / 10000;
+    //stars
+    var starScore = repo.stargazers * 100 / 10000;
 
     //forks
     var forkScore = repo.forks * 100 / 1000;
 
     repo.score = {
       commit: round(commitScore),
-      watch: round(watchScore),
+      star: round(starScore),
       fork: round(forkScore)
     }
     repo.githubRank = index + 1;
-    repo.scoreValue = Math.round(commitScore + watchScore + forkScore);
+    repo.scoreValue = Math.round(commitScore + starScore + forkScore);
   }
 
   window.calculateScores = function(arr) {
