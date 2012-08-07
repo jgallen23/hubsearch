@@ -20,6 +20,7 @@ $.fidel('app', {
   },
   showResults: function(lang, query) {
     var self = this;
+    document.title = query + ' - ' + lang + ' | HubSearch';
     self.els.search.searchBox('set', query, lang);
     self.els.results.searchResults('showLoading');
     githubSearch(query, lang, function(err, results) {
