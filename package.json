@@ -1,7 +1,7 @@
 {
   "name": "hubsearch",
   "description": "a better github search",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/jgallen23/hubsearch",
   "author": "Greg Allen <@jgaui> (http://jga.me)",
   "repository": {

@@ -1,4 +1,10 @@
 
+0.1.1 / 2012-08-07 
+==================
+
+  * updated title tags
+  * added twitter link to footer
+
 0.1.0 / 2012-08-06 
 ==================
 
