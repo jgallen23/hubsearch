@@ -1,4 +1,11 @@
 
+0.2.0 / 2012-08-07 
+==================
+
+  * underline sortable columns
+  * changed watchers to stars
+  * default sort by score
+
 0.1.1 / 2012-08-07 
 ==================
 
