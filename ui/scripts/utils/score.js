@@ -8,6 +8,8 @@
 
   var calculateScore = function(repo, index) {
 
+    //TODO: factor in github result index
+
     //commit time
     var now = new Date().getTime();
     var diff = now - new Date(repo.pushed_at).getTime();

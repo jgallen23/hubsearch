@@ -11,7 +11,7 @@ $.fidel('searchResults', {
   },
   set: function(results) {
     this.results = results;
-    this.sortBy('githubRank');
+    this.sortBy('scoreValue');
   },
   tableHeaderClicked: function(e) {
     var sort = $(e.target).data('sort');
