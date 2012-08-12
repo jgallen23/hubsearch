@@ -1,4 +1,5 @@
 _.templateSettings = {
+  escape: /\{\{-(.+?)\}\}/g,
   evaluate: /\{\{(.+?)\}\}/g,
   interpolate: /\{\{=(.+?)\}\}/g
 };
