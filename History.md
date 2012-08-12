@@ -1,4 +1,10 @@
 
+0.2.1 / 2012-08-12 
+==================
+
+  * fixed sorting by stars #4
+  * html escaping/encoding ajax results.
+
 0.2.0 / 2012-08-07 
 ==================
 
