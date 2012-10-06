@@ -3,7 +3,7 @@
   <head>
     <title>HubSearch</title>
     <!--<script src="ui/vendor/live/live.js"></script>-->
-    <link rel="stylesheet" href="ui/_dist/app.min.css"/>
+    <link rel="stylesheet" href="ui/_dist/app.css"/>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -31,7 +31,7 @@
       <div class="row-fluid">
         <form class="well form-search">
           <div class="span4">
-            <input type="text" name="q" class="search-query" placeholder="Search for repo..." autofocus="autofocus">
+            <input type="text" name="q" placeholder="Search for repo..." autofocus="autofocus">
           </div>
           <div class="span4">
             <input type="text" name="lang" data-provide="typeahead" placeholder="Language...">
@@ -82,7 +82,7 @@
       {{ _.each(results, function(result) { }}
         <tr>
           <td class="name">
-            <a href="{{- result.url }}">{{- result.name }}</a>
+            <a href="https://github.com/{{- result.username }}/{{- result.name }}">{{- result.name }}</a>
             <p>{{- result.description }}</p>
           </td>
           <td data-timestamp="{{- result.pushed_at }}"></td>
@@ -99,6 +99,6 @@
     <script>
       var languages = ["ActionScript","Ada","Apex","Arc","Arduino","ASP","Assembly","Augeas","AutoHotkey","Boo","Bro","C","C#","C++","Ceylon","Clojure","CoffeeScript","ColdFusion","Common Lisp","Coq","D","Dart","DCPU-16 ASM","Delphi","Dylan","eC","Eiffel","Elixir","Emacs Lisp","Erlang","F#","Factor","Fancy","Fantom","FORTRAN","Go","Gosu","Groovy","Haskell","HaXe","Io","Ioke","Java","JavaScript","Julia","Kotlin","Logtalk","Lua","Matlab","Max/MSP","Mirah","Nemerle","Nimrod","Nu","Objective-C","Objective-J","OCaml","ooc","Opa","OpenEdge ABL","Parrot","Perl","PHP","PowerShell","Prolog","Puppet","Pure Data","Python","R","Racket","Rebol","Ruby","Rust","Scala","Scheme","Scilab","Self","Shell","Smalltalk","Standard ML","SuperCollider","Tcl","Turing","Vala","Verilog","VHDL","VimL","Visual Basic","XQuery"];
     </script>
-    <script src="ui/_dist/app.min.js"></script>
+    <script src="ui/_dist/app.js"></script>
   </body>
 </html>

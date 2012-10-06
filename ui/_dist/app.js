@@ -36,7 +36,7 @@ b.chain=function(a){return b(a).chain()};var m=function(a){this._wrapped=a};b.pr
 this._chain)}});j(["concat","join","slice"],function(a){var b=k[a];m.prototype[a]=function(){return x(b.apply(this._wrapped,arguments),this._chain)}});m.prototype.chain=function(){this._chain=true;return this};m.prototype.value=function(){return this._wrapped}}).call(this);
 
 /* =============================================================
- * bootstrap-typeahead.js v2.0.4
+ * bootstrap-typeahead.js v2.1.1
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -114,17 +114,23 @@ this._chain)}});j(["concat","join","slice"],function(a){var b=k[a];m.prototype[a
     }
 
   , lookup: function (event) {
-      var that = this
-        , items
-        , q
+      var items
 
       this.query = this.$element.val()
 
-      if (!this.query) {
+      if (!this.query || this.query.length < this.options.minLength) {
         return this.shown ? this.hide() : this
       }
 
-      items = $.grep(this.source, function (item) {
+      items = $.isFunction(this.source) ? this.source(this.query, $.proxy(this.process, this)) : this.source
+
+      return items ? this.process(items) : this
+    }
+
+  , process: function (items) {
+      var that = this
+
+      items = $.grep(items, function (item) {
         return that.matcher(item)
       })
 
@@ -205,13 +211,47 @@ this._chain)}});j(["concat","join","slice"],function(a){var b=k[a];m.prototype[a
         .on('keypress', $.proxy(this.keypress, this))
         .on('keyup',    $.proxy(this.keyup, this))
 
-      if ($.browser.webkit || $.browser.msie) {
-        this.$element.on('keydown', $.proxy(this.keypress, this))
+      if ($.browser.chrome || $.browser.webkit || $.browser.msie) {
+        this.$element.on('keydown', $.proxy(this.keydown, this))
       }
 
       this.$menu
         .on('click', $.proxy(this.click, this))
         .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
+    }
+
+  , move: function (e) {
+      if (!this.shown) return
+
+      switch(e.keyCode) {
+        case 9: // tab
+        case 13: // enter
+        case 27: // escape
+          e.preventDefault()
+          break
+
+        case 38: // up arrow
+          e.preventDefault()
+          this.prev()
+          break
+
+        case 40: // down arrow
+          e.preventDefault()
+          this.next()
+          break
+      }
+
+      e.stopPropagation()
+    }
+
+  , keydown: function (e) {
+      this.suppressKeyPressRepeat = !~$.inArray(e.keyCode, [40,38,9,13,27])
+      this.move(e)
+    }
+
+  , keypress: function (e) {
+      if (this.suppressKeyPressRepeat) return
+      this.move(e)
     }
 
   , keyup: function (e) {
@@ -238,32 +278,6 @@ this._chain)}});j(["concat","join","slice"],function(a){var b=k[a];m.prototype[a
       e.stopPropagation()
       e.preventDefault()
   }
-
-  , keypress: function (e) {
-      if (!this.shown) return
-
-      switch(e.keyCode) {
-        case 9: // tab
-        case 13: // enter
-        case 27: // escape
-          e.preventDefault()
-          break
-
-        case 38: // up arrow
-          if (e.type != 'keydown') break
-          e.preventDefault()
-          this.prev()
-          break
-
-        case 40: // down arrow
-          if (e.type != 'keydown') break
-          e.preventDefault()
-          this.next()
-          break
-      }
-
-      e.stopPropagation()
-    }
 
   , blur: function (e) {
       var that = this
@@ -302,12 +316,13 @@ this._chain)}});j(["concat","join","slice"],function(a){var b=k[a];m.prototype[a
   , items: 8
   , menu: '<ul class="typeahead dropdown-menu"></ul>'
   , item: '<li><a href="#"></a></li>'
+  , minLength: 1
   }
 
   $.fn.typeahead.Constructor = Typeahead
 
 
- /* TYPEAHEAD DATA-API
+ /*   TYPEAHEAD DATA-API
   * ================== */
 
   $(function () {
@@ -320,6 +335,7 @@ this._chain)}});j(["concat","join","slice"],function(a){var b=k[a];m.prototype[a
   })
 
 }(window.jQuery);
+
 /*!
   * Fidel - A javascript view controller
   * v2.0.0
@@ -657,7 +673,9 @@ $.fn.relativeTime = function() {
 
   var week = 1000 * 60 * 60 * 24 * 7;
 
-  var calculateScore = function(repo) {
+  var calculateScore = function(repo, index) {
+
+    //TODO: factor in github result index
 
     //commit time
     var now = new Date().getTime();
@@ -667,18 +685,19 @@ $.fn.relativeTime = function() {
       commitScore = 0;
     }
 
-    //watchers
-    var watchScore = repo.watchers * 100 / 10000;
+    //stars
+    var starScore = repo.watchers * 100 / 10000;
 
     //forks
     var forkScore = repo.forks * 100 / 1000;
 
     repo.score = {
       commit: round(commitScore),
-      watch: round(watchScore),
+      star: round(starScore),
       fork: round(forkScore)
     }
-    repo.scoreValue = Math.round(commitScore + watchScore + forkScore);
+    repo.githubRank = index + 1;
+    repo.scoreValue = Math.round(commitScore + starScore + forkScore);
   }
 
   window.calculateScores = function(arr) {
@@ -728,7 +747,7 @@ $.fidel('searchBox', {
   },
   search: function(e) {
     var query = this.els.query.val();
-    var language = this.els.language.val().toLowerCase() || 'all';
+    var language = this.els.language.val() || 'all';
 
     if (!query) {
       return;
@@ -778,6 +797,8 @@ $.fidel('searchResults', {
       if (key == 'commit') {
         var d = new Date(item.pushed_at).getTime();
         return now - d;
+      } else if (key == 'githubRank') {
+        return item[key];
       } else { 
         return -item[key];
       }
@@ -797,6 +818,7 @@ $.fidel('searchResults', {
 });
 
 _.templateSettings = {
+  escape: /\{\{-(.+?)\}\}/g,
   evaluate: /\{\{(.+?)\}\}/g,
   interpolate: /\{\{=(.+?)\}\}/g
 };
@@ -815,16 +837,18 @@ $.fidel('app', {
     this.els.results.searchResults();
   },
   showHome: function() {
-    console.log('home');
   },
   showResults: function(lang, query) {
     var self = this;
+    document.title = query + ' - ' + lang + ' | HubSearch';
     self.els.search.searchBox('set', query, lang);
     self.els.results.searchResults('showLoading');
     githubSearch(query, lang, function(err, results) {
+      debugger;
       calculateScores(results);
       self.els.results.searchResults('set', results);
     });
+    _gaq.push(['_trackEvent', 'hubsearch', 'search', '']);
   }
 });
 
