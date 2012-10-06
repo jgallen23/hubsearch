@@ -657,7 +657,9 @@ $.fn.relativeTime = function() {
 
   var week = 1000 * 60 * 60 * 24 * 7;
 
-  var calculateScore = function(repo) {
+  var calculateScore = function(repo, index) {
+
+    //TODO: factor in github result index
 
     //commit time
     var now = new Date().getTime();
@@ -667,18 +669,19 @@ $.fn.relativeTime = function() {
       commitScore = 0;
     }
 
-    //watchers
-    var watchScore = repo.watchers * 100 / 10000;
+    //stars
+    var starScore = repo.watchers * 100 / 10000;
 
     //forks
     var forkScore = repo.forks * 100 / 1000;
 
     repo.score = {
       commit: round(commitScore),
-      watch: round(watchScore),
+      star: round(starScore),
       fork: round(forkScore)
     }
-    repo.scoreValue = Math.round(commitScore + watchScore + forkScore);
+    repo.githubRank = index + 1;
+    repo.scoreValue = Math.round(commitScore + starScore + forkScore);
   }
 
   window.calculateScores = function(arr) {
@@ -728,7 +731,7 @@ $.fidel('searchBox', {
   },
   search: function(e) {
     var query = this.els.query.val();
-    var language = this.els.language.val().toLowerCase() || 'all';
+    var language = this.els.language.val() || 'all';
 
     if (!query) {
       return;
@@ -778,6 +781,8 @@ $.fidel('searchResults', {
       if (key == 'commit') {
         var d = new Date(item.pushed_at).getTime();
         return now - d;
+      } else if (key == 'githubRank') {
+        return item[key];
       } else { 
         return -item[key];
       }
@@ -797,6 +802,7 @@ $.fidel('searchResults', {
 });
 
 _.templateSettings = {
+  escape: /\{\{-(.+?)\}\}/g,
   evaluate: /\{\{(.+?)\}\}/g,
   interpolate: /\{\{=(.+?)\}\}/g
 };
@@ -815,16 +821,18 @@ $.fidel('app', {
     this.els.results.searchResults();
   },
   showHome: function() {
-    console.log('home');
   },
   showResults: function(lang, query) {
     var self = this;
+    document.title = query + ' - ' + lang + ' | HubSearch';
     self.els.search.searchBox('set', query, lang);
     self.els.results.searchResults('showLoading');
     githubSearch(query, lang, function(err, results) {
+      debugger;
       calculateScores(results);
       self.els.results.searchResults('set', results);
     });
+    _gaq.push(['_trackEvent', 'hubsearch', 'search', '']);
   }
 });
 

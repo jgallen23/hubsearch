@@ -2586,6 +2586,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.results [data-sort]:hover {
+  text-decoration: underline;
+}
+
 .results table [data-sort] {
   cursor: pointer;
 }

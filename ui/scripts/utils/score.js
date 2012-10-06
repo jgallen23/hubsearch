@@ -19,7 +19,7 @@
     }
 
     //stars
-    var starScore = repo.stargazers * 100 / 10000;
+    var starScore = repo.watchers * 100 / 10000;
 
     //forks
     var forkScore = repo.forks * 100 / 1000;
