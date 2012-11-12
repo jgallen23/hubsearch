@@ -1,4 +1,13 @@
 
+0.2.2 / 2012-11-12 
+==================
+
+  * removed debugger
+  * fix for search box
+  * rebuilt, updated bootstrap
+  * fixed repo urls and score
+  * updated index
+
 0.2.1 / 2012-08-12 
 ==================
 
