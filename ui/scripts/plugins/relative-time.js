@@ -20,7 +20,7 @@ $.fn.relativeTime = function() {
       return v + ' minute' + (v > 1 ? 's' : '') + ' ago';
     }
     return 'Just now';
-  }
+  };
   return this.each(function() {
 
     var el = $(this);

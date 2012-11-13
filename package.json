@@ -8,12 +8,19 @@
     "type": "git",
     "url": "https://github.com/jgallen23/hubsearch.git"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "markx": "*",
     "masher": "0.6.0",
-    "boots": "*"
+    "boots": "*",
+    "grunt": "~0.3.17",
+    "grunt-hash": "~0.1.1",
+    "grunt-growl": "~0.1.2",
+    "grunt-templater": "0.0.2",
+    "ejs": "~0.8.3"
   },
-  "keywords": ["github", "search"]
+  "keywords": [
+    "github",
+    "search"
+  ]
 }

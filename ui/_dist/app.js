@@ -653,7 +653,7 @@ $.fn.relativeTime = function() {
       return v + ' minute' + (v > 1 ? 's' : '') + ' ago';
     }
     return 'Just now';
-  }
+  };
   return this.each(function() {
 
     var el = $(this);
@@ -669,7 +669,7 @@ $.fn.relativeTime = function() {
   
   var round = function(num) {
     return Math.round(num*100)/100;
-  }
+  };
 
   var week = 1000 * 60 * 60 * 24 * 7;
 
@@ -695,14 +695,14 @@ $.fn.relativeTime = function() {
       commit: round(commitScore),
       star: round(starScore),
       fork: round(forkScore)
-    }
+    };
     repo.githubRank = index + 1;
     repo.scoreValue = Math.round(commitScore + starScore + forkScore);
-  }
+  };
 
   window.calculateScores = function(arr) {
     _.each(arr, calculateScore);
-  }
+  };
 })(window);
 
 var githubSearch = function(query, language, callback) {
@@ -721,7 +721,7 @@ var githubSearch = function(query, language, callback) {
       }
     }
   });
-}
+};
 
 $.fidel('searchBox', {
   elements: {

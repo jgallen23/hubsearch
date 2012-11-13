@@ -14,4 +14,4 @@ var githubSearch = function(query, language, callback) {
       }
     }
   });
-}
+};
