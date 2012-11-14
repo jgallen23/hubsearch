@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="hubSearch">
   <head>
     <title>HubSearch</title>
     <!--<script src="ui/vendor/live/live.js"></script>-->
@@ -27,11 +27,11 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="HubSearchController">
       <div class="row-fluid">
-        <form class="well form-search">
+        <form class="well form-search" ng-submit="onSubmit()">
           <div class="span4">
-            <input type="text" name="q" placeholder="Search for repo..." autofocus="autofocus">
+            <input ng-model="query" type="text" name="q" placeholder="Search for repo..." autofocus="autofocus">
           </div>
           <div class="span4">
             <input type="text" name="lang" data-provide="typeahead" placeholder="Language...">
@@ -43,8 +43,8 @@
       </div>
       <div class="row-fluid">
         <div class="results">
-          <div class="loading">Searching Github...</div>
-          <table class="table table-striped">
+          <div class="loading" ng-show="searching">Searching Github...</div>
+          <table class="table table-striped" ng-show="repos">
             <thead>
               <tr>
                 <th>Repo</th>
@@ -52,11 +52,25 @@
                 <th data-sort="stargazers">Stars</th>
                 <th data-sort="forks">Forks</th>
                 <th data-sort="scoreValue">Score</th>
-                <th data-sort="githubRank">Github Result</th>
+                <th data-sort="githubRank">Github Rank</th>
                 <th>Author</th>
               </tr>
             </thead>
             <tbody>
+              <tr ng-repeat="repo in repos">
+                <td class="name">
+                  <a href="https://github.com/{{repo.username}}/{{repo.name}}">{{repo.name}}</a>
+                  <p>{{repo.description}}</p>
+                </td>
+                <td data-timestamp="{{repo.pushed_at}}"></td>
+                <td>{{repo.watchers}}</td>
+                <td>{{repo.forks}}</td>
+                <td>{{repo.score.value}}</td>
+                <td>{{repo.score.githubRank}}</td>
+                <td>
+                  <a href="http://github.com/{{repo.username}}">{{repo.username}}</a>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -80,25 +94,11 @@
     </div>
     <script type="text/html" id="tpl-results">
       {{ _.each(results, function(result) { }}
-        <tr>
-          <td class="name">
-            <a href="https://github.com/{{- result.username }}/{{- result.name }}">{{- result.name }}</a>
-            <p>{{- result.description }}</p>
-          </td>
-          <td data-timestamp="{{- result.pushed_at }}"></td>
-          <td>{{- result.watchers }}</td>
-          <td>{{- result.forks }}</td>
-          <td>{{- result.scoreValue }}</td>
-          <td>{{- result.githubRank }}</td>
-          <td>
-            <a href="http://github.com/{{- result.username }}">{{- result.username }}</a>
-          </td>
-        </tr>
       {{ }); }} 
     </script>
     <script>
       var languages = ["ActionScript","Ada","Apex","Arc","Arduino","ASP","Assembly","Augeas","AutoHotkey","Boo","Bro","C","C#","C++","Ceylon","Clojure","CoffeeScript","ColdFusion","Common Lisp","Coq","D","Dart","DCPU-16 ASM","Delphi","Dylan","eC","Eiffel","Elixir","Emacs Lisp","Erlang","F#","Factor","Fancy","Fantom","FORTRAN","Go","Gosu","Groovy","Haskell","HaXe","Io","Ioke","Java","JavaScript","Julia","Kotlin","Logtalk","Lua","Matlab","Max/MSP","Mirah","Nemerle","Nimrod","Nu","Objective-C","Objective-J","OCaml","ooc","Opa","OpenEdge ABL","Parrot","Perl","PHP","PowerShell","Prolog","Puppet","Pure Data","Python","R","Racket","Rebol","Ruby","Rust","Scala","Scheme","Scilab","Self","Shell","Smalltalk","Standard ML","SuperCollider","Tcl","Turing","Vala","Verilog","VHDL","VimL","Visual Basic","XQuery"];
     </script>
-    <script src="ui/_dist/app.js"></script>
+    <script src="_dist/app.js"></script>
   </body>
 </html>

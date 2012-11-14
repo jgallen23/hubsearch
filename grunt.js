@@ -1,6 +1,12 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     output: 'ui/_dist',
+    clientside: {
+      app: {
+        main: 'app/main.js',
+        output: '_dist/app.js'
+      }
+    },
     template: {
       main: {
         src: 'views/main.ejs',
@@ -11,13 +17,7 @@ module.exports = function(grunt) {
     lint: {
       grunt: 'grunt.js',
       scripts: [
-        'ui/scripts/plugins/fidel-underscore.js',
-        'ui/scripts/plugins/relative-time.js',
-        'ui/scripts/utils/score.js',
-        'ui/scripts/services/github-search.js',
-        'ui/scripts/modules/search-box.js',
-        'ui/scripts/modules/search-results.js',
-        'ui/scripts/app.js'
+        'app/**/*.js'
       ]
     },
     concat: {
@@ -27,17 +27,6 @@ module.exports = function(grunt) {
           'ui/stylesheets/common.css'
         ],
         dest: '<%= output %>/app.css'
-      },
-      scripts: {
-        src: [
-          'ui/vendor/jquery/jquery-1.7.2.min.js',
-          'ui/vendor/underscore/underscore-min.js',
-          'ui/vendor/bootstrap/js/bootstrap.js',
-          'ui/vendor/fidel/fidel.js',
-          'ui/vendor/fidel-routes/fidel.routes.js',
-          '<config:lint.scripts>'
-        ],
-        dest: '<%= output %>/app.js'
       }
     },
     min: {
@@ -50,22 +39,18 @@ module.exports = function(grunt) {
         dest: '<config:concat.scripts.dest>'
       }
     },
-    hash: {
-      src: [
-        '<%= output %>/app.css',
-        '<%= output %>/app.js'
-      ],
-      dest: '<%= output %>',
-      mapping: 'assets.json'
-    },
     watch: {
+      view: {
+        files: '<config:template.main.src>',
+        tasks: 'template'
+      },
       styles: {
         files: '<config:concat.styles.src>',
         tasks: 'concat.styles'
       },
       scripts: {
         files: '<config:lint.scripts>', 
-        tasks: 'lint concat' 
+        tasks: 'lint clientside' 
       },
       grunt: {
         files: 'grunt.js',
@@ -82,8 +67,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-growl');
   grunt.loadNpmTasks('grunt-hash');
   grunt.loadNpmTasks('grunt-templater');
+  grunt.loadNpmTasks('grunt-clientside');
 
-  grunt.registerTask('default', 'lint concat');
+  grunt.registerTask('default', 'template clientside lint concat');
   grunt.registerTask('prod', 'default min');
   grunt.registerTask('dev', 'default server watch');
 };

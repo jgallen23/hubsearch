@@ -3153,9 +3153,6 @@ a:hover {
 .results {
   min-height: 500px;
 }
-.results table {
-  display: none;
-}
 
 .results table .selected {
   text-decoration: underline;
@@ -3184,7 +3181,6 @@ a:hover {
 }
 
 .loading {
-  display: none;
   background: url(../images/loader.gif) no-repeat;
   padding-left: 20px;
   line-height: 20px;

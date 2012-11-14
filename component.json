@@ -1,0 +1,6 @@
+{
+  "name": "hubsearch",
+  "dependencies": {
+    "angular": "*"
+  }
+}
