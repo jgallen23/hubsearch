@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    output: 'ui/_dist',
+    output: '_dist',
     clientside: {
       app: {
         main: 'app/main.js',

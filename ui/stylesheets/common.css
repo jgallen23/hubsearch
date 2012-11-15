@@ -35,7 +35,7 @@
 }
 
 .loading {
-  background: url(../images/loader.gif) no-repeat;
+  background: url(../ui/images/loader.gif) no-repeat;
   padding-left: 20px;
   line-height: 20px;
   margin: 10px 0; 
