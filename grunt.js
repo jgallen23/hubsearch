@@ -46,7 +46,7 @@ module.exports = function(grunt) {
       },
       styles: {
         files: '<config:concat.styles.src>',
-        tasks: 'concat.styles'
+        tasks: 'concat:styles'
       },
       scripts: {
         files: '<config:lint.scripts>', 
