@@ -11,7 +11,9 @@ module.exports = function(app) {
           .then(function(response) {
             var repos = response.data.data.repositories;
             utils.each(repos, function(repo, index) {
-              repo.score = score(repo, index);
+              var result = score(repo, index);
+              repo.score = result.value;
+              repo.githubRank = index+1;
             });
             return repos;
           });

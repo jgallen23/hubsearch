@@ -3147,6 +3147,9 @@ a:hover {
   border-radius: 4px;
 }
 
+.table th[ng-click] {
+  cursor: pointer;
+}
 .navbar-inner {
   border-radius: 0 0 4px 4px;
 }

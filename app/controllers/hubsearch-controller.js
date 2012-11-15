@@ -1,9 +1,11 @@
 module.exports = function(app) {
 
   require('../services/github')(app);
+  require('../filters/relative-date')(app);
 
   app.controller('HubSearchController', ['$scope', 'github', '$route', '$location', function($scope, github, $route, $location) {
 
+    $scope.sortKey = '-forks';
     $scope.searching = false;
     $scope.repos = [];
 

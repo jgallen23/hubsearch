@@ -47,26 +47,26 @@
           <table class="table table-striped" ng-show="repos">
             <thead>
               <tr>
-                <th>Repo</th>
-                <th data-sort="commit">Last Commit</th>
-                <th data-sort="stargazers">Stars</th>
-                <th data-sort="forks">Forks</th>
-                <th data-sort="scoreValue">Score</th>
-                <th data-sort="githubRank">Github Rank</th>
+                <th ng-click="sortKey='name'">Repo</th>
+                <th ng-click="sortKey='-pushed_at'">Last Commit</th>
+                <th ng-click="sortKey='-watchers'">Stars</th>
+                <th ng-click="sortKey='-forks'">Forks</th>
+                <th ng-click="sortKey='-score'">Score</th>
+                <th ng-click="sortKey='githubRank'">Github Rank</th>
                 <th>Author</th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="repo in repos">
+              <tr ng-repeat="repo in repos | orderBy:sortKey">
                 <td class="name">
                   <a href="https://github.com/{{repo.username}}/{{repo.name}}">{{repo.name}}</a>
                   <p>{{repo.description}}</p>
                 </td>
-                <td data-timestamp="{{repo.pushed_at}}"></td>
+                <td>{{repo.pushed_at|relativeDate}}</td>
                 <td>{{repo.watchers}}</td>
                 <td>{{repo.forks}}</td>
-                <td>{{repo.score.value}}</td>
-                <td>{{repo.score.githubRank}}</td>
+                <td>{{repo.score}}</td>
+                <td>{{repo.githubRank}}</td>
                 <td>
                   <a href="http://github.com/{{repo.username}}">{{repo.username}}</a>
                 </td>
