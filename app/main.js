@@ -1,7 +1,7 @@
 //TODO: update clientside to allow custom returns
 require('angular');
 var app = angular.module('hubSearch', []);
-require('./controllers/hubsearch-controller')(app);
+require('./controllers/hubsearch')(app);
 require('./services/router')(app);
 
 //TODO: change to exports
