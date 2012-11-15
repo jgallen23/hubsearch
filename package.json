@@ -18,7 +18,8 @@
     "grunt-growl": "~0.1.2",
     "grunt-templater": "0.0.2",
     "ejs": "~0.8.3",
-    "grunt-clientside": "~0.2.0"
+    "grunt-clientside": "~0.2.0",
+    "grunt-bootstrap": "~0.1.0"
   },
   "keywords": [
     "github",

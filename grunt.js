@@ -62,8 +62,29 @@ module.exports = function(grunt) {
       }
     },
     server: {
+    },
+    bootstrap: {
+      dest: 'ui/vendor/bootstrap',
+      css: [
+        "reset.less",
+        "type.less",
+        "tables.less",
+        "buttons.less",
+        "forms.less",
+        "navs.less",
+        "navbar.less",
+        "scaffolding.less",
+        "grid.less",
+        "layouts.less",
+        "wells.less",
+        "dropdowns.less"
+      ],
+      js: [
+        "bootstrap-typeahead.js"
+      ]
     }
   });
+  grunt.loadNpmTasks('grunt-bootstrap');
   grunt.loadNpmTasks('grunt-growl');
   grunt.loadNpmTasks('grunt-hash');
   grunt.loadNpmTasks('grunt-templater');
