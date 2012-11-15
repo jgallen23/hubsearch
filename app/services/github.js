@@ -6,6 +6,7 @@ module.exports = function(app) {
     return {
       search: function(query, language) {
         return $http
+          //.get('/fixtures/results.json')
           .jsonp('https://api.github.com/legacy/repos/search/'+query+'?callback=JSON_CALLBACK')
           .then(function(response) {
             var repos = response.data.data.repositories;
