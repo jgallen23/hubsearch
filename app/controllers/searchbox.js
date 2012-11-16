@@ -4,9 +4,12 @@ app.controller('SearchBoxController', function($rootScope, $scope, debug) {
   $scope.$watch('query', function() {
     $scope.inputQuery = $scope.query;
   });
+  $scope.$watch('language', function() {
+    $scope.inputLanguage = $scope.language;
+  });
 
   $scope.onSubmit = function() {
-    log('submit', $scope.inputQuery);
-    $scope.updateQuery($scope.inputQuery);
+    log('submit', $scope.inputLanguage, $scope.inputQuery);
+    $scope.updateQuery($scope.inputLanguage, $scope.inputQuery);
   };
 });

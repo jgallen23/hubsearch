@@ -1,6 +1,6 @@
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
-    .when('/:query', {
+    .when('/:lang/:query', {
       controller: 'SearchResultsController',
       templateUrl: 'searchResults.html'
     })

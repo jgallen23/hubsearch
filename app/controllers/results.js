@@ -6,14 +6,17 @@ app.controller('SearchResultsController', function($scope, github, debug) {
   $scope.repos = [];
 
   $scope.$watch('query', function() {
-    search($scope.query);
+    search($scope.query, $scope.language);
+  });
+  $scope.$watch('language', function() {
+    search($scope.query, $scope.language);
   });
 
-  var search = function(query) {
+  var search = function(query, lang) {
     log('query', query);
     $scope.searching = true;
     github
-      .search(query)
+      .search(query, lang)
         .then(function(response) {
           log('results', response);
           $scope.repos = response;
