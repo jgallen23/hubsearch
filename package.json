@@ -10,15 +10,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "markx": "*",
-    "masher": "0.6.0",
-    "boots": "*",
     "grunt": "~0.3.17",
     "grunt-hash": "~0.1.1",
     "grunt-growl": "~0.1.2",
     "grunt-templater": "0.0.2",
     "ejs": "~0.8.3",
-    "grunt-clientside": "~0.2.0",
     "grunt-bootstrap": "~0.1.0"
   },
   "keywords": [

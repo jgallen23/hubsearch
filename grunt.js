@@ -1,11 +1,17 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     output: '_dist',
-    clientside: {
-      app: {
-        main: 'app/main.js',
-        output: '_dist/app.js'
-      }
+    files: {
+      vendor: [
+        'components/angular/angular.js',
+        'components/debug/debug.js'
+      ],
+      app: [
+        'app/main.js',
+        'app/controllers/*.js',
+        'app/filters/*.js',
+        'app/services/*.js'
+      ]
     },
     template: {
       main: {
@@ -16,9 +22,7 @@ module.exports = function(grunt) {
     },
     lint: {
       grunt: 'grunt.js',
-      scripts: [
-        'app/**/*.js'
-      ]
+      scripts: '<config:files.app>'
     },
     concat: {
       styles: {
@@ -27,6 +31,13 @@ module.exports = function(grunt) {
           'ui/stylesheets/common.css'
         ],
         dest: '<%= output %>/app.css'
+      },
+      scripts: {
+        src: [
+          '<config:files.vendor>',
+          '<config:files.app>'
+        ],
+        dest: '<%= output %>/app.js'
       }
     },
     min: {
@@ -49,8 +60,8 @@ module.exports = function(grunt) {
         tasks: 'concat:styles'
       },
       scripts: {
-        files: '<config:lint.scripts>', 
-        tasks: 'lint clientside' 
+        files: '<config:files.app>', 
+        tasks: 'lint concat:scripts' 
       },
       grunt: {
         files: 'grunt.js',
@@ -88,9 +99,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-growl');
   grunt.loadNpmTasks('grunt-hash');
   grunt.loadNpmTasks('grunt-templater');
-  grunt.loadNpmTasks('grunt-clientside');
 
-  grunt.registerTask('default', 'template clientside lint concat');
+  grunt.registerTask('default', 'template lint concat');
   grunt.registerTask('prod', 'default min');
   grunt.registerTask('dev', 'default server watch');
 };
