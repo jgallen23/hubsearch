@@ -1,34 +1,14 @@
 module.exports = function(app) {
 
-  require('../services/github')(app);
-  require('../filters/relative-date')(app);
+  app.controller('HubSearchController', function($scope, $routeParams, $location, $log) {
+    $scope.query = $routeParams.query;
 
-  app.controller('HubSearchController', ['$scope', 'github', '$route', '$location', function($scope, github, $route, $location) {
+    $scope.updateQuery = function(val) {
+      $location.path('/'+val);
+    };
 
-    $scope.sortKey = '-forks';
-    $scope.searching = false;
-    $scope.repos = [];
-
-    $scope.$on('routeChanged', function(e, query) {
-      if ($scope.query != query) {
-        $scope.query = query;
-        search();
-      }
+    $scope.$on('$routeChangeSuccess', function(event, route, previousRoute) {
+      $scope.query = route.params.query;
     });
-
-    $scope.onSubmit = function() {
-      search();
-    };
-
-    var search = function() {
-      $scope.searching = true;
-      github
-        .search($scope.query)
-          .then(function(response) {
-            $location.path('/'+$scope.query);
-            $scope.repos = response;
-            $scope.searching = false;
-          });
-    };
-  }]);
+  });
 };
