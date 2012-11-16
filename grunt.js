@@ -1,6 +1,9 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    output: '_dist',
+    dist: {
+      script: '_dist/app.js',
+      style: '_dist/app.css'
+    },
     files: {
       vendor: [
         'components/angular/angular.js',
@@ -30,24 +33,27 @@ module.exports = function(grunt) {
           'ui/vendor/bootstrap/css/bootstrap.css',
           'ui/stylesheets/common.css'
         ],
-        dest: '<%= output %>/app.css'
+        dest: '<config:dist.style>'
       },
       scripts: {
         src: [
           '<config:files.vendor>',
           '<config:files.app>'
         ],
-        dest: '<%= output %>/app.js'
+        dest: '<config:dist.script>'
       }
     },
     min: {
-      styles: {
-        src: '<config:concat.styles.dest>',
-        dest: '<config:concat.styles.dest>'
-      },
       scripts: {
-        src: '<config:concat.scripts.dest>',
-        dest: '<config:concat.scripts.dest>'
+        src: '<config:dist.script>',
+        dest: '<config:dist.script>'
+      }
+    },
+    mincss: {
+      compress: {
+        files: {
+          '<config:dist.style>': '<config:dist.style>'
+        }
       }
     },
     watch: {
@@ -98,9 +104,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bootstrap');
   grunt.loadNpmTasks('grunt-growl');
   grunt.loadNpmTasks('grunt-hash');
+  grunt.loadNpmTasks('grunt-contrib-mincss');
   grunt.loadNpmTasks('grunt-templater');
 
   grunt.registerTask('default', 'template lint concat');
-  grunt.registerTask('prod', 'default min');
+  grunt.registerTask('prod', 'default min mincss');
   grunt.registerTask('dev', 'default server watch');
 };

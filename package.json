@@ -15,7 +15,8 @@
     "grunt-growl": "~0.1.2",
     "grunt-templater": "0.0.2",
     "ejs": "~0.8.3",
-    "grunt-bootstrap": "~0.1.0"
+    "grunt-bootstrap": "~0.1.0",
+    "grunt-contrib-mincss": "~0.3.2"
   },
   "keywords": [
     "github",
