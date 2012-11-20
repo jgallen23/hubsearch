@@ -1,1 +1,2 @@
-window.app = angular.module('hubSearch', []);
+
+window.app = angular.module('hubSearch', ['ui']);

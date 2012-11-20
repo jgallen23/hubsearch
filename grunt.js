@@ -6,7 +6,12 @@ module.exports = function(grunt) {
     },
     files: {
       vendor: [
+        'components/jquery/jquery.js',
+        'ui/vendor/bootstrap/js/bootstrap.js',
         'components/angular/angular.js',
+        'ui/vendor/select2-master/select2.js',
+        'components/angular-ui/common/module.js',
+        'components/angular-ui/modules/directives/select2/select2.js',
         'components/debug/debug.js'
       ],
       app: [
@@ -31,6 +36,7 @@ module.exports = function(grunt) {
       styles: {
         src: [
           'ui/vendor/bootstrap/css/bootstrap.css',
+          'ui/vendor/select2-master/select2.css',
           'ui/stylesheets/common.css'
         ],
         dest: '<config:dist.style>'
@@ -52,7 +58,7 @@ module.exports = function(grunt) {
     mincss: {
       compress: {
         files: {
-          '<config:dist.style>': '<config:dist.style>'
+          '_dist/app.css': '<config:dist.style>'
         }
       }
     },

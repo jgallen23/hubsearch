@@ -17,7 +17,7 @@
 
     </script>
     <script>
-      var languages = <%- JSON.stringify(languages) %>;
+      var _languages = <%- JSON.stringify(languages) %>;
     </script>
     <script src="_dist/app.js"></script>
   </head>
@@ -34,10 +34,12 @@
       <div class="row-fluid">
         <form class="well form-search" ng-submit="onSubmit()">
           <div class="span4">
-            <input ng-model="inputQuery" type="text" name="q" placeholder="Search for repo..." autofocus="autofocus">
+            <input ng-model="inputQuery" type="text" placeholder="Search for repo..." autofocus="autofocus">
           </div>
           <div class="span4">
-            <input ng-model="inputLanguage" type="text" name="lang" data-provide="typeahead" placeholder="Language...">
+            <select ng-model="inputLanguage" ui-select2 style="width: 300px">
+              <option ng-repeat="lang in languages" value="{{lang}}">{{lang}}</option>
+            </select>
           </div>
           <div class="span4">
             <button type="submit" class="btn btn-primary">Search</button>

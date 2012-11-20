@@ -1,6 +1,8 @@
 {
   "name": "hubsearch",
   "dependencies": {
-    "angular": "*"
+    "angular": "*",
+    "jquery": "1.8.3",
+    "angular-ui": "~0.3.1"
   }
 }
