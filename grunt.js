@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         'components/jquery/jquery.js',
         'ui/vendor/bootstrap/js/bootstrap.js',
         'components/angular/angular.js',
-        'ui/vendor/select2-master/select2.js',
+        'components/select2/select2.js',
         'components/angular-ui/common/module.js',
         'components/angular-ui/modules/directives/select2/select2.js',
         'components/debug/debug.js'
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       styles: {
         src: [
           'ui/vendor/bootstrap/css/bootstrap.css',
-          'ui/vendor/select2-master/select2.css',
+          'components/select2/select2.css',
           'ui/stylesheets/common.css'
         ],
         dest: '<config:dist.style>'
