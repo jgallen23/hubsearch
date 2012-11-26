@@ -1,6 +1,26 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    output: 'ui/_dist',
+    dist: {
+      script: '_dist/app.js',
+      style: '_dist/app.css'
+    },
+    files: {
+      vendor: [
+        'components/jquery/jquery.js',
+        'ui/vendor/bootstrap/js/bootstrap.js',
+        'components/angular/angular.js',
+        'components/select2/select2.js',
+        'components/angular-ui/common/module.js',
+        'components/angular-ui/modules/directives/select2/select2.js',
+        'components/debug/debug.js'
+      ],
+      app: [
+        'app/main.js',
+        'app/controllers/*.js',
+        'app/filters/*.js',
+        'app/services/*.js'
+      ]
+    },
     template: {
       main: {
         src: 'views/main.ejs',
@@ -10,62 +30,50 @@ module.exports = function(grunt) {
     },
     lint: {
       grunt: 'grunt.js',
-      scripts: [
-        'ui/scripts/plugins/fidel-underscore.js',
-        'ui/scripts/plugins/relative-time.js',
-        'ui/scripts/utils/score.js',
-        'ui/scripts/services/github-search.js',
-        'ui/scripts/modules/search-box.js',
-        'ui/scripts/modules/search-results.js',
-        'ui/scripts/app.js'
-      ]
+      scripts: '<config:files.app>'
     },
     concat: {
       styles: {
         src: [
           'ui/vendor/bootstrap/css/bootstrap.css',
+          'components/select2/select2.css',
           'ui/stylesheets/common.css'
         ],
-        dest: '<%= output %>/app.css'
+        dest: '<config:dist.style>'
       },
       scripts: {
         src: [
-          'ui/vendor/jquery/jquery-1.7.2.min.js',
-          'ui/vendor/underscore/underscore-min.js',
-          'ui/vendor/bootstrap/js/bootstrap.js',
-          'ui/vendor/fidel/fidel.js',
-          'ui/vendor/fidel-routes/fidel.routes.js',
-          '<config:lint.scripts>'
+          '<config:files.vendor>',
+          '<config:files.app>'
         ],
-        dest: '<%= output %>/app.js'
+        dest: '<config:dist.script>'
       }
     },
     min: {
-      styles: {
-        src: '<config:concat.styles.dest>',
-        dest: '<config:concat.styles.dest>'
-      },
       scripts: {
-        src: '<config:concat.scripts.dest>',
-        dest: '<config:concat.scripts.dest>'
+        src: '<config:dist.script>',
+        dest: '<config:dist.script>'
       }
     },
-    hash: {
-      src: [
-        '<%= output %>/app.css',
-        '<%= output %>/app.js'
-      ],
-      dest: '<%= output %>',
-      mapping: 'assets.json'
+    mincss: {
+      compress: {
+        files: {
+          '_dist/app.css': '<config:dist.style>'
+        }
+      }
     },
     watch: {
+      view: {
+        files: '<config:template.main.src>',
+        tasks: 'template'
+      },
       styles: {
         files: '<config:concat.styles.src>',
-        tasks: 'concat.styles'
+        tasks: 'concat:styles'
       },
       scripts: {
-        files: '<config:lint.scripts>', 
-        tasks: 'lint concat' 
+        files: '<config:files.app>', 
+        tasks: 'lint concat:scripts' 
       },
       grunt: {
         files: 'grunt.js',
@@ -77,13 +85,35 @@ module.exports = function(grunt) {
       }
     },
     server: {
+    },
+    bootstrap: {
+      dest: 'ui/vendor/bootstrap',
+      css: [
+        "reset.less",
+        "type.less",
+        "tables.less",
+        "buttons.less",
+        "forms.less",
+        "navs.less",
+        "navbar.less",
+        "scaffolding.less",
+        "grid.less",
+        "layouts.less",
+        "wells.less",
+        "dropdowns.less"
+      ],
+      js: [
+        "bootstrap-typeahead.js"
+      ]
     }
   });
+  grunt.loadNpmTasks('grunt-bootstrap');
   grunt.loadNpmTasks('grunt-growl');
   grunt.loadNpmTasks('grunt-hash');
+  grunt.loadNpmTasks('grunt-contrib-mincss');
   grunt.loadNpmTasks('grunt-templater');
 
-  grunt.registerTask('default', 'lint concat');
-  grunt.registerTask('prod', 'default min');
+  grunt.registerTask('default', 'template lint concat');
+  grunt.registerTask('prod', 'default min mincss');
   grunt.registerTask('dev', 'default server watch');
 };

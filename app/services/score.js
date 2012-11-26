@@ -1,14 +1,12 @@
-(function(exports) {
-  
+app.factory('score', function() {
+
   var round = function(num) {
     return Math.round(num*100)/100;
   };
 
   var week = 1000 * 60 * 60 * 24 * 7;
 
-  var calculateScore = function(repo, index) {
-
-    //TODO: factor in github result index
+  return function(repo, githubRank) {
 
     //commit time
     var now = new Date().getTime();
@@ -24,16 +22,14 @@
     //forks
     var forkScore = repo.forks * 100 / 1000;
 
-    repo.score = {
+    var score = {
       commit: round(commitScore),
       star: round(starScore),
-      fork: round(forkScore)
+      fork: round(forkScore),
+      githubRank: githubRank + 1,
+      value: Math.round(commitScore + starScore + forkScore)
     };
-    repo.githubRank = index + 1;
-    repo.scoreValue = Math.round(commitScore + starScore + forkScore);
+    return score;
   };
 
-  window.calculateScores = function(arr) {
-    _.each(arr, calculateScore);
-  };
-})(window);
+});

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="hubSearch">
   <head>
     <title>HubSearch</title>
-    <!--<script src="ui/vendor/live/live.js"></script>-->
-    <link rel="stylesheet" href="ui/_dist/app.css"/>
+    <link rel="stylesheet" href="_dist/app.css"/>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -17,8 +16,12 @@
       })();
 
     </script>
+    <script>
+      var _languages = <%- JSON.stringify(languages) %>;
+    </script>
+    <script src="_dist/app.js"></script>
   </head>
-  <body>
+  <body ng-controller="HubSearchController">
     <a href="https://github.com/jgallen23/hubsearch"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
     <div class="navbar">
       <div class="navbar-inner">
@@ -27,14 +30,16 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="SearchBoxController">
       <div class="row-fluid">
-        <form class="well form-search">
+        <form class="well form-search" ng-submit="onSubmit()">
           <div class="span4">
-            <input type="text" name="q" placeholder="Search for repo..." autofocus="autofocus">
+            <input ng-model="inputQuery" type="text" placeholder="Search for repo..." autofocus="autofocus">
           </div>
           <div class="span4">
-            <input type="text" name="lang" data-provide="typeahead" placeholder="Language...">
+            <select ng-model="inputLanguage" ui-select2 style="width: 100%">
+              <option ng-repeat="lang in languages" value="{{lang}}">{{lang}}</option>
+            </select>
           </div>
           <div class="span4">
             <button type="submit" class="btn btn-primary">Search</button>
@@ -42,26 +47,43 @@
         </form>
       </div>
       <div class="row-fluid">
-        <div class="results">
-          <div class="loading">Searching Github...</div>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Repo</th>
-                <th data-sort="commit">Last Commit</th>
-                <th data-sort="stargazers">Stars</th>
-                <th data-sort="forks">Forks</th>
-                <th data-sort="scoreValue">Score</th>
-                <th data-sort="githubRank">Github Result</th>
-                <th>Author</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
+        <div ng-view></div>
       </div>
     </div>
+    <script id="searchResults.html" type="text/ng-template">
+      <div class="results">
+        <div class="loading" ng-show="searching">Searching Github...</div>
+        <table class="table table-striped" ng-show="repos">
+          <thead>
+            <tr>
+              <th ng-click="sortKey='name'">Repo</th>
+              <th ng-click="sortKey='-pushed_at'">Last Commit</th>
+              <th ng-click="sortKey='-watchers'">Stars</th>
+              <th ng-click="sortKey='-forks'">Forks</th>
+              <th ng-click="sortKey='-score'">Score</th>
+              <th ng-click="sortKey='githubRank'">Github Rank</th>
+              <th>Author</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="repo in repos | orderBy:sortKey">
+              <td class="name">
+                <a href="https://github.com/{{repo.username}}/{{repo.name}}">{{repo.name}}</a>
+                <p>{{repo.description}}</p>
+              </td>
+              <td>{{repo.pushed_at|relativeDate}}</td>
+              <td>{{repo.watchers}}</td>
+              <td>{{repo.forks}}</td>
+              <td>{{repo.score}}</td>
+              <td>{{repo.githubRank}}</td>
+              <td>
+                <a href="http://github.com/{{repo.username}}">{{repo.username}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </script>
     <div class="footer">
       <ul>
         <li>Built With:</li>
@@ -78,27 +100,5 @@
         Built by: <a href="http://github.com/jgallen23">Greg Allen</a> (<a href="http://twitter.com/jgaui">@jgaui</a>)
       </p>
     </div>
-    <script type="text/html" id="tpl-results">
-      {{ _.each(results, function(result) { }}
-        <tr>
-          <td class="name">
-            <a href="https://github.com/{{- result.username }}/{{- result.name }}">{{- result.name }}</a>
-            <p>{{- result.description }}</p>
-          </td>
-          <td data-timestamp="{{- result.pushed_at }}"></td>
-          <td>{{- result.watchers }}</td>
-          <td>{{- result.forks }}</td>
-          <td>{{- result.scoreValue }}</td>
-          <td>{{- result.githubRank }}</td>
-          <td>
-            <a href="http://github.com/{{- result.username }}">{{- result.username }}</a>
-          </td>
-        </tr>
-      {{ }); }} 
-    </script>
-    <script>
-      var languages = <%- JSON.stringify(languages) %>;
-    </script>
-    <script src="ui/_dist/app.js"></script>
   </body>
 </html>

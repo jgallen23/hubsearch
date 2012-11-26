@@ -1,11 +1,11 @@
+.table th[ng-click] {
+  cursor: pointer;
+}
 .navbar-inner {
   border-radius: 0 0 4px 4px;
 }
 .results {
   min-height: 500px;
-}
-.results table {
-  display: none;
 }
 
 .results table .selected {
@@ -35,8 +35,7 @@
 }
 
 .loading {
-  display: none;
-  background: url(../images/loader.gif) no-repeat;
+  background: url(../ui/images/loader.gif) no-repeat;
   padding-left: 20px;
   line-height: 20px;
   margin: 10px 0; 

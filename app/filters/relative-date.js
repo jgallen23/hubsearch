@@ -1,6 +1,6 @@
-$.fn.relativeTime = function() {
+app.filter('relativeDate', function() {
+  return function(timestamp) {
 
-  var getRelativeTime = function(timestamp) {
     var now = new Date().getTime() / 1000;
     var d = new Date(timestamp).getTime() / 1000;
     var diff = now - d;
@@ -21,13 +21,4 @@ $.fn.relativeTime = function() {
     }
     return 'Just now';
   };
-  return this.each(function() {
-
-    var el = $(this);
-    var time = el.data('timestamp');
-
-    el.html(getRelativeTime(time));
-
-  });
-
-};
+});
