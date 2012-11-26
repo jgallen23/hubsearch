@@ -1,4 +1,29 @@
 
+0.3.0 / 2012-11-25 
+==================
+
+  * updated gitignore
+  * Merge branch 'feature/angular'
+  * select2 width
+  * select2 using bower
+  * select2
+  * min css
+  * added support for language
+  * debug service
+  * removed clientside
+  * refactored controllers and routes
+  * renamed hubsearch-controller
+  * changed output directory, moved scripts to top
+  * removed old files
+  * updated bootstrap
+  * added grunt-bootstrap
+  * removed old scripts
+  * sorting and relative date
+  * routing
+  * fixed concat styles
+  * initial work on re-writing to angular
+  * grunt integration
+
 0.2.2 / 2012-11-12 
 ==================
 
