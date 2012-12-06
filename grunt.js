@@ -84,6 +84,11 @@ module.exports = function(grunt) {
         tasks: 'default'
       }
     },
+    uglify: {
+      mangle: {
+        mangle: false
+      }
+    },
     server: {
     },
     bootstrap: {
