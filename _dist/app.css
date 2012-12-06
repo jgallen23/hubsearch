@@ -3744,6 +3744,7 @@ disabled look for already selected choices in the results dropdown
 
 /*** FOOTER ***/
 .footer {
+  margin-top: 100px;
   border-top: 1px solid #eee;
   padding: 10px;
   font-size: 12px;
