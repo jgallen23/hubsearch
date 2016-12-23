@@ -10,11 +10,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.3.17",
-    "grunt-hash": "~0.1.1",
+    "grunt": "~1.0.1",
+    "grunt-hash": "~0.5.0",
     "grunt-growl": "~0.1.2",
-    "grunt-templater": "0.0.2",
-    "ejs": "~0.8.3",
+    "grunt-templater": "0.0.6",
+    "ejs": "~2.5.5",
     "grunt-bootstrap": "~0.1.0",
     "grunt-contrib-mincss": "~0.3.2"
   },
